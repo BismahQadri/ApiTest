@@ -1,7 +1,7 @@
 package com.example.apiintegrationtask.datasource.remote
 
 import android.arch.lifecycle.MutableLiveData
-import com.example.apiintegration.utilities.Event
+import com.example.apiintegrationtask.utilities.Event
 
 
 interface ApiCallback<T> {

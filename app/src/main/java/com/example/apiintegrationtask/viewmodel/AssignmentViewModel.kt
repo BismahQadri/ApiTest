@@ -3,10 +3,10 @@ package com.example.apiintegrationtask.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.example.apiintegration.datasource.remote.assignment.AssignmentService
 import com.example.apiintegrationtask.datasource.models.Item
 import com.example.apiintegrationtask.datasource.remote.ApiCallback
 import com.example.apiintegrationtask.datasource.remote.NetworkState2
+import com.example.apiintegrationtask.datasource.remote.assignment.AssignmentService
 import com.example.apiintegrationtask.utilities.Event
 
 class AssignmentViewModel: ViewModel() {

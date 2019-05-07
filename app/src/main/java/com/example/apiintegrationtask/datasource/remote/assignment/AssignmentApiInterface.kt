@@ -1,7 +1,8 @@
-package com.example.apiintegration.datasource.remote.assignment
+package com.example.apiintegrationtask.datasource.remote.assignment
 
-import com.example.apiintegration.datasource.models.Item
-import com.fh.payday.datasource.remote.ApiResult
+
+import com.example.apiintegrationtask.datasource.models.Item
+import com.example.apiintegrationtask.datasource.remote.ApiResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
