@@ -1,7 +1,7 @@
 package com.example.apiintegrationtask.datasource.remote.assignment
 
 
-import com.example.apiintegrationtask.datasource.models.Item
+import com.example.apiintegrationtask.datasource.models.Base
 import com.example.apiintegrationtask.datasource.remote.ApiResult
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,6 +12,6 @@ interface AssignmentApiInterface {
     fun getDetails(
             @Query("tags") tags: String = "story",
             @Query("page") page: String = "1"
-    ): Call<ApiResult<List<Item>>>
+    ): Call<ApiResult<Base>>
 
 }

@@ -1,7 +1,7 @@
 package com.example.apiintegrationtask.datasource.remote.assignment
 
 import com.example.apiintegrationtask.ApiClient
-import com.example.apiintegrationtask.datasource.models.Item
+import com.example.apiintegrationtask.datasource.models.Base
 import com.example.apiintegrationtask.datasource.remote.ApiCallback
 import com.example.apiintegrationtask.datasource.remote.ApiResult
 import retrofit2.Call
@@ -14,16 +14,16 @@ class AssignmentService {
         val instance: AssignmentService by lazy { AssignmentService() }
     }
 
-    fun getDetails( tags: String, page: String, callback: ApiCallback<List<Item>>) {
+    fun getDetails( tags: String, page: String, callback: ApiCallback<Base>) {
         val service = ApiClient.retrofit.create(AssignmentApiInterface::class.java)
         val call = service.getDetails(tags, page)
 
-        call.enqueue(object : Callback<ApiResult<List<Item>>> {
-            override fun onFailure(call: Call<ApiResult<List<Item>>>, t: Throwable) {
+        call.enqueue(object : Callback<ApiResult<Base>> {
+            override fun onFailure(call: Call<ApiResult<Base>>, t: Throwable) {
                 callback.onFailure(t)
             }
 
-            override fun onResponse(call: Call<ApiResult<List<Item>>>, response: Response<ApiResult<List<Item>>>) {
+            override fun onResponse(call: Call<ApiResult<Base>>, response: Response<ApiResult<Base>>) {
                 val result = response.body() ?: return callback.onFailure(Throwable("Connection Error"))
                 if (result.data != null) {
                     callback.onSuccess(result.data)

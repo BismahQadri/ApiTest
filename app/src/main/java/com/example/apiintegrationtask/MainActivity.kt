@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
 
             when (state) {
                 is NetworkState2.Success -> {
-                    if (state.data != null)
-                        recyclerView.adapter = MainAdapter(state.data)
+                    if (state.data?.hits != null)
+                        recyclerView.adapter = MainAdapter(state.data.hits)
                 }
                 is NetworkState2.Error -> {
                     Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
