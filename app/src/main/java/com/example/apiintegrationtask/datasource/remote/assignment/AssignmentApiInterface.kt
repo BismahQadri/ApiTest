@@ -12,6 +12,6 @@ interface AssignmentApiInterface {
     fun getDetails(
             @Query("tags") tags: String = "story",
             @Query("page") page: String = "1"
-    ): Call<ApiResult<Base>>
+    ): Call<Base>
 
 }

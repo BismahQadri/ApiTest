@@ -18,18 +18,16 @@ class AssignmentService {
         val service = ApiClient.retrofit.create(AssignmentApiInterface::class.java)
         val call = service.getDetails(tags, page)
 
-        call.enqueue(object : Callback<ApiResult<Base>> {
-            override fun onFailure(call: Call<ApiResult<Base>>, t: Throwable) {
+        call.enqueue(object : Callback<Base> {
+            override fun onFailure(call: Call<Base>, t: Throwable) {
                 callback.onFailure(t)
             }
 
-            override fun onResponse(call: Call<ApiResult<Base>>, response: Response<ApiResult<Base>>) {
+            override fun onResponse(call: Call<Base>, response: Response<Base>) {
                 val result = response.body() ?: return callback.onFailure(Throwable("Connection Error"))
-                if (result.data != null) {
-                    callback.onSuccess(result.data)
-                } else {
-                    callback.onFailure(Throwable("Connection Error"))
-                }
+
+                    callback.onSuccess(result)
+
             }
 
         })
