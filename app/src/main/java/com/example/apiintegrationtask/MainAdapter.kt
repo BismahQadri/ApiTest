@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.apiintegrationtask.datasource.models.Hits
 
-class MainAdapter (private val items: List<Hits>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter (private var items: MutableList<Hits>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_main, parent, false)
@@ -29,6 +29,11 @@ class MainAdapter (private val items: List<Hits>) : RecyclerView.Adapter<MainAda
             tvTitle.text = item.title
             tvCreatedAt.text = item.created_at
         }
+    }
+
+    public fun dataChange(item : List<Hits>){
+        items.addAll(item)
+        notifyDataSetChanged()
     }
 
 }

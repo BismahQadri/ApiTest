@@ -9,6 +9,7 @@ import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
+import com.example.apiintegrationtask.datasource.models.Hits
 import com.example.apiintegrationtask.datasource.remote.NetworkState2
 import com.example.apiintegrationtask.viewmodel.AssignmentViewModel
 
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var viewModel: AssignmentViewModel
+    private var list: MutableList<Hits> = ArrayList()
+    private lateinit var adapter: MainAdapter
+    private var pages = 1
+    private var totalPages: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +37,26 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         progressBar = findViewById(R.id.progress_bar)
         viewModel = ViewModelProviders.of(this).get(AssignmentViewModel::class.java)
+
+        adapter = MainAdapter(list)
+
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        viewModel.getDetails("story", "1")
+        recyclerView.adapter = adapter
+        viewModel.getDetails("story", pages.toString())
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (pages < totalPages)
+                viewModel.getDetails("story", pages.toString())
+            }
+        })
+
     }
 
 
@@ -52,8 +75,14 @@ class MainActivity : AppCompatActivity() {
 
             when (state) {
                 is NetworkState2.Success -> {
-                    if (state.data?.hits != null)
-                        recyclerView.adapter = MainAdapter(state.data.hits)
+                    if (state.data?.hits != null){
+                        adapter.dataChange(state.data.hits as MutableList<Hits>)
+                        totalPages = state.data.nbPages!!.toInt()
+                        pages = state.data.page!!.toInt()
+                        if (pages < totalPages)
+                           pages += 1
+                    }
+
                 }
                 is NetworkState2.Error -> {
                     Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
