@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.widget.ProgressBar
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import com.example.apiintegrationtask.datasource.models.Hits
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
             when (state) {
                 is NetworkState2.Success -> {
-                    if (state.data?.hits != null){
+                    if (state.data?.hits != null && state.data.hits.isNotEmpty()){
                         adapter.dataChange(state.data.hits as MutableList<Hits>)
                         totalPages = state.data.nbPages!!.toInt()
                         pages = state.data.page!!.toInt()
